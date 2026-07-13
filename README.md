@@ -17,7 +17,7 @@ More games are added over time — see the "More games coming soon" tile on the 
 ## Tech stack
 
 - **PHP** (PDO) for server-side game logic — no framework, no build step
-- **MySQL/MariaDB** (Cricket) and **SQLite** (Go Fish, Kolshi) for persistence
+- **MySQL/MariaDB** (Cricket, Kolshi) and **SQLite** (Go Fish) for persistence
 - **Vanilla JavaScript** for interactive gameplay and AJAX polling (real-time sync without WebSockets)
 - **Plain HTML/CSS**, each game self-contained in its own folder
 
@@ -28,21 +28,21 @@ More games are added over time — see the "More games coming soon" tile on the 
    git clone --recurse-submodules https://github.com/aratik1997/tongmama.git
    ```
    Already cloned without `--recurse-submodules`? Run `git submodule update --init` inside the repo.
-2. Start **Apache** (and **MySQL**, for Cricket) from the XAMPP control panel.
+2. Start **Apache** and **MySQL** from the XAMPP control panel.
 3. Visit `http://localhost/tongmama/` for the game hub, or jump straight into a game:
    - `http://localhost/tongmama/cricket/`
    - `http://localhost/tongmama/gofish/`
    - `http://localhost/tongmama/kolshi/`
 
-Each game bootstraps its own database/schema automatically on first load. Kolshi requires copying `kolshi/api/config.example.php` to `kolshi/api/config.php` first — see [`kolshi/README.md`](kolshi/README.md) for details. Cricket and Go Fish need no extra setup beyond default XAMPP credentials.
+Go Fish bootstraps its SQLite database automatically on first load — no setup needed. Cricket and Kolshi each need a MySQL database; Cricket defaults to XAMPP's standard `root`/no-password `localhost` setup automatically, while Kolshi requires copying `kolshi/api/config.example.php` to `kolshi/api/config.php` and filling in your own credentials — see [`kolshi/README.md`](kolshi/README.md) for details.
 
 ## Project structure
 
 ```
 index.html      Game hub landing page — pick a game to play
-cricket/        Reflex Cricket (PHP + MySQL)     — submodule: https://github.com/aratik1997/cricket
-gofish/         Go Fish (PHP + SQLite)           — submodule: https://github.com/aratik1997/gofish
-kolshi/         Kolshi / Yaniv (PHP + SQLite)    — submodule: https://github.com/aratik1997/callshow
+cricket/        Reflex Cricket (PHP + MySQL)    — submodule: https://github.com/aratik1997/cricket
+gofish/         Go Fish (PHP + SQLite)          — submodule: https://github.com/aratik1997/gofish
+kolshi/         Kolshi / Yaniv (PHP + MySQL)    — submodule: https://github.com/aratik1997/callshow
 ```
 
 Each game folder has its own README with gameplay rules and implementation details.
@@ -50,4 +50,4 @@ Each game folder has its own README with gameplay rules and implementation detai
 ## Requirements
 
 - PHP 8.0+ (PDO, SimpleXML, SQLite extensions enabled — all on by default in XAMPP)
-- MySQL or MariaDB (for Cricket only)
+- MySQL or MariaDB (for Cricket and Kolshi)
