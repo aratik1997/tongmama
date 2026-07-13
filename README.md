@@ -8,7 +8,7 @@ A small hub of browser-based multiplayer games, built with PHP, vanilla JavaScri
 
 | Game | Path | Description |
 |---|---|---|
-| 🏏 **Reflex Cricket** | [`/cricket`](cricket/) | A millisecond-timing reflex game — hit the stopwatch at the right instant to score runs. Solo vs. computer, same-screen pass-and-play, online multiplayer, or a full single-player World Cup tournament with groups and knockouts. |
+| 🏏 **Reflex Cricket** | [`https://github.com/aratik1997/gofish`](cricket/) | A millisecond-timing reflex game — hit the stopwatch at the right instant to score runs. Solo vs. computer, same-screen pass-and-play, online multiplayer, or a full single-player World Cup tournament with groups and knockouts. |
 | 🎣 **Go Fish** | [`/gofish`](gofish/) | The classic card game, "Pond Party" style. Ask opponents for cards, collect sets, and see who reels in the most — with in-game chat and a tiebreak mode. |
 | 🃏 **Kolshi** | [`/kolshi`](kolshi/) | A fast multiplayer card game on Yaniv rules. Build a low-value hand, Call or Show at the right moment, and outlast the table. Real-time play over polling, with a turn timer, host controls, and chat. |
 
