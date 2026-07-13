@@ -6,11 +6,11 @@ A small hub of browser-based multiplayer games, built with PHP, vanilla JavaScri
 
 ## Games
 
-| Game | Path | Description |
-|---|---|---|
-| 🏏 **Reflex Cricket** | [`/cricket`](cricket/) | A millisecond-timing reflex game — hit the stopwatch at the right instant to score runs. Solo vs. computer, same-screen pass-and-play, online multiplayer, or a full single-player World Cup tournament with groups and knockouts. |
-| 🎣 **Go Fish** | [`/gofish`](gofish/) | The classic card game, "Pond Party" style. Ask opponents for cards, collect sets, and see who reels in the most — with in-game chat and a tiebreak mode. |
-| 🃏 **Kolshi** | [`/kolshi`](kolshi/) | A fast multiplayer card game on Yaniv rules. Build a low-value hand, Call or Show at the right moment, and outlast the table. Real-time play over polling, with a turn timer, host controls, and chat. |
+| Game | Path | Repo | Description |
+|---|---|---|---|
+| 🏏 **Reflex Cricket** | [`/cricket`](cricket/) | [aratik1997/cricket](https://github.com/aratik1997/cricket) | A millisecond-timing reflex game — hit the stopwatch at the right instant to score runs. Solo vs. computer, same-screen pass-and-play, online multiplayer, or a full single-player World Cup tournament with groups and knockouts. |
+| 🎣 **Go Fish** | [`/gofish`](gofish/) | [aratik1997/gofish](https://github.com/aratik1997/gofish) | The classic card game, "Pond Party" style. Ask opponents for cards, collect sets, and see who reels in the most — with in-game chat and a tiebreak mode. |
+| 🃏 **Kolshi** | [`/kolshi`](kolshi/) | [aratik1997/callshow](https://github.com/aratik1997/callshow) | A fast multiplayer card game on Yaniv rules. Build a low-value hand, Call or Show at the right moment, and outlast the table. Real-time play over polling, with a turn timer, host controls, and chat. |
 
 More games are added over time — see the "More games coming soon" tile on the hub for what's in the pipeline.
 
@@ -40,9 +40,9 @@ Each game bootstraps its own database/schema automatically on first load. Kolshi
 
 ```
 index.html      Game hub landing page — pick a game to play
-cricket/        Reflex Cricket (PHP + MySQL)     — submodule: aratik1997/cricket
-gofish/         Go Fish (PHP + SQLite)           — submodule: aratik1997/gofish
-kolshi/         Kolshi / Yaniv (PHP + SQLite)    — submodule: aratik1997/callshow
+cricket/        Reflex Cricket (PHP + MySQL)     — submodule: https://github.com/aratik1997/cricket
+gofish/         Go Fish (PHP + SQLite)           — submodule: https://github.com/aratik1997/gofish
+kolshi/         Kolshi / Yaniv (PHP + SQLite)    — submodule: https://github.com/aratik1997/callshow
 ```
 
 Each game folder has its own README with gameplay rules and implementation details.
