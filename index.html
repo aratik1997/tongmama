@@ -3,31 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tong Mama — Game Hub</title>
-<meta name="description" content="Tong Mama Game Hub — pick a game and start playing.">
+<title>Tong Mama — Arcade</title>
+<meta name="description" content="Tong Mama Arcade — insert coin and pick a game.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0b0e14;
-    --bg-panel: #10141d;
-    --grid-line: rgba(255, 255, 255, 0.04);
-    --text: #eef1f8;
-    --text-soft: #8891a7;
-    --brand: #7c5cff;
-    --brand-glow: #a78bfa;
+    --bg: #0a0716;
+    --bg-panel: #150c2e;
+    --grid-line: rgba(255, 255, 255, 0.05);
+    --text: #f2f0ff;
+    --text-soft: #9089b8;
+    --brand: #ff2ec4;
+    --brand-glow: #f6ff5a;
 
-    --cricket-1: #0f5132;
-    --cricket-2: #1e8c4f;
-    --cricket-glow: #4ade80;
+    --cricket-1: #0a3d2a;
+    --cricket-2: #14532d;
+    --cricket-glow: #39ff14;
 
-    --fish-1: #063d52;
-    --fish-2: #0f7ea3;
-    --fish-glow: #38d4e0;
+    --fish-1: #072a4a;
+    --fish-2: #0a4a6e;
+    --fish-glow: #00f0ff;
 
-    --kolshi-1: #3a0f5c;
-    --kolshi-2: #8b2fc9;
-    --kolshi-glow: #d68cff;
+    --kolshi-1: #33094a;
+    --kolshi-2: #5c0f8b;
+    --kolshi-glow: #ff2ec4;
 
-    --soon-glow: #8891a7;
+    --pixel: 6px;
   }
 
   * {
@@ -41,97 +46,129 @@
   }
 
   body {
-    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-    background:
-      radial-gradient(circle at 15% 0%, rgba(124, 92, 255, 0.14), transparent 45%),
-      radial-gradient(circle at 85% 100%, rgba(56, 212, 224, 0.10), transparent 45%),
-      var(--bg);
-    background-attachment: fixed;
+    font-family: 'Courier New', 'Consolas', monospace;
+    background: var(--bg);
     color: var(--text);
     min-height: 100vh;
     position: relative;
-    padding: 56px 24px 40px;
+    padding: 56px 20px 40px;
+    image-rendering: pixelated;
+    overflow-x: hidden;
   }
 
+  /* checkerboard floor-tile grid */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     background-image:
-      linear-gradient(var(--grid-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-    background-size: 42px 42px;
-    mask-image: radial-gradient(circle at 50% 0%, black, transparent 75%);
+      linear-gradient(var(--grid-line) 2px, transparent 2px),
+      linear-gradient(90deg, var(--grid-line) 2px, transparent 2px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(circle at 50% 0%, black, transparent 80%);
     pointer-events: none;
     z-index: 0;
+  }
+
+  /* CRT scanlines + vignette */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      repeating-linear-gradient(rgba(0,0,0,0) 0, rgba(0,0,0,0) 2px, rgba(0,0,0,0.25) 3px, rgba(0,0,0,0) 4px),
+      radial-gradient(circle at 50% 40%, transparent 55%, rgba(0,0,0,0.55) 100%);
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .pixel-corners {
+    clip-path: polygon(
+      0 var(--pixel), var(--pixel) var(--pixel), var(--pixel) 0,
+      calc(100% - var(--pixel)) 0, calc(100% - var(--pixel)) var(--pixel), 100% var(--pixel),
+      100% calc(100% - var(--pixel)), calc(100% - var(--pixel)) calc(100% - var(--pixel)), calc(100% - var(--pixel)) 100%,
+      var(--pixel) 100%, var(--pixel) calc(100% - var(--pixel)), 0 calc(100% - var(--pixel))
+    );
   }
 
   header {
     position: relative;
     z-index: 1;
     text-align: center;
-    max-width: 680px;
-    margin: 0 auto 52px;
-    animation: fadeUp 0.8s ease-out;
+    max-width: 720px;
+    margin: 0 auto 56px;
   }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
+  .logo-mark {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 22px;
+    display: block;
+    image-rendering: auto;
+    filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.6));
   }
 
   .badge {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    border-radius: 999px;
-    background: rgba(124, 92, 255, 0.12);
-    border: 1px solid rgba(124, 92, 255, 0.35);
+    gap: 10px;
+    padding: 8px 16px;
+    background: var(--bg-panel);
+    border: 3px solid var(--brand-glow);
     color: var(--brand-glow);
-    font-size: 0.72rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-weight: 600;
-    margin-bottom: 22px;
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+    margin-bottom: 28px;
   }
 
   .badge .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
+    width: 8px;
+    height: 8px;
     background: var(--brand-glow);
-    box-shadow: 0 0 8px var(--brand-glow);
-    animation: pulse 1.8s ease-in-out infinite;
+    animation: blink 1s steps(1) infinite;
   }
 
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.35; }
+  @keyframes blink {
+    50% { opacity: 0; }
   }
 
   h1 {
-    font-size: clamp(2.2rem, 6vw, 3.2rem);
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    margin-bottom: 12px;
-    background: linear-gradient(135deg, #ffffff, #b9c0d4);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+    font-size: clamp(1.6rem, 6vw, 2.8rem);
+    line-height: 1.5;
+    letter-spacing: 2px;
+    color: var(--brand-glow);
+    text-shadow:
+      3px 3px 0 var(--brand),
+      6px 6px 0 rgba(0, 0, 0, 0.6);
+    margin-bottom: 20px;
   }
 
   h1 span {
-    background: linear-gradient(135deg, var(--brand-glow), var(--fish-glow));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: var(--fish-glow);
+    text-shadow:
+      3px 3px 0 var(--kolshi-glow),
+      6px 6px 0 rgba(0, 0, 0, 0.6);
   }
 
   .tagline {
-    font-size: 1rem;
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+    font-size: 0.7rem;
     color: var(--text-soft);
-    letter-spacing: 0.3px;
+    letter-spacing: 0.5px;
+    line-height: 1.9;
+  }
+
+  .tagline .arrow {
+    display: inline-block;
+    color: var(--cricket-glow);
+    animation: nudge 1s steps(2) infinite;
+  }
+
+  @keyframes nudge {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(4px); }
   }
 
   main {
@@ -144,7 +181,7 @@
   .games {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 26px;
+    gap: 30px;
   }
 
   .game-card {
@@ -152,146 +189,119 @@
     display: flex;
     flex-direction: column;
     background: var(--bg-panel);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    padding: 0;
+    border: 3px solid rgba(255, 255, 255, 0.15);
     text-decoration: none;
     color: var(--text);
-    overflow: hidden;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    animation: fadeUp 0.8s ease-out backwards;
+    box-shadow: 8px 8px 0 0 rgba(0, 0, 0, 0.55);
+    transition: transform 0.12s steps(2), box-shadow 0.12s steps(2), border-color 0.12s;
   }
-
-  .game-card:nth-child(1) { animation-delay: 0.05s; }
-  .game-card:nth-child(2) { animation-delay: 0.15s; }
-  .game-card:nth-child(3) { animation-delay: 0.25s; }
-  .game-card:nth-child(4) { animation-delay: 0.35s; }
 
   .game-card:hover,
   .game-card:focus-visible {
-    transform: translateY(-8px);
+    transform: translate(-4px, -4px);
+    box-shadow: 12px 12px 0 0 rgba(0, 0, 0, 0.55);
+  }
+
+  .game-card:active {
+    transform: translate(2px, 2px);
+    box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.55);
   }
 
   .game-banner {
     position: relative;
-    height: 130px;
+    height: 128px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.15);
   }
 
   .game-banner .icon {
-    font-size: 52px;
+    font-size: 50px;
     position: relative;
     z-index: 2;
-    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
-    transition: transform 0.3s ease;
+    filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.5));
+    transition: transform 0.15s steps(2);
   }
 
   .game-card:hover .game-banner .icon {
-    transform: scale(1.12) rotate(-4deg);
+    transform: scale(1.1) translateY(-2px);
   }
 
   .game-banner::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.16), transparent 60%);
+    background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0 4px, transparent 4px 16px);
   }
 
-  /* Cricket theme: floodlit pitch */
-  .banner-cricket {
-    background:
-      repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 38px),
-      linear-gradient(160deg, var(--cricket-2), var(--cricket-1));
-  }
-  .card-cricket { border-color: rgba(74, 222, 128, 0.18); }
-  .card-cricket:hover { box-shadow: 0 18px 44px rgba(74, 222, 128, 0.22); border-color: var(--cricket-glow); }
+  .banner-cricket { background: linear-gradient(160deg, var(--cricket-2), var(--cricket-1)); }
+  .card-cricket:hover { border-color: var(--cricket-glow); }
   .card-cricket .game-cta { color: var(--cricket-glow); }
-  .card-cricket .tag { background: rgba(74, 222, 128, 0.12); color: var(--cricket-glow); border-color: rgba(74, 222, 128, 0.3); }
+  .card-cricket .tag { color: var(--cricket-glow); border-color: var(--cricket-glow); }
 
-  /* Go Fish theme: ocean waves */
-  .banner-fish {
-    background:
-      radial-gradient(circle at 20% 120%, rgba(255,255,255,0.10) 0, transparent 55%),
-      radial-gradient(circle at 80% 130%, rgba(255,255,255,0.08) 0, transparent 50%),
-      linear-gradient(160deg, var(--fish-2), var(--fish-1));
-  }
-  .card-fish { border-color: rgba(56, 212, 224, 0.18); }
-  .card-fish:hover { box-shadow: 0 18px 44px rgba(56, 212, 224, 0.22); border-color: var(--fish-glow); }
+  .banner-fish { background: linear-gradient(160deg, var(--fish-2), var(--fish-1)); }
+  .card-fish:hover { border-color: var(--fish-glow); }
   .card-fish .game-cta { color: var(--fish-glow); }
-  .card-fish .tag { background: rgba(56, 212, 224, 0.12); color: var(--fish-glow); border-color: rgba(56, 212, 224, 0.3); }
+  .card-fish .tag { color: var(--fish-glow); border-color: var(--fish-glow); }
 
-  /* Kolshi theme: casino felt */
-  .banner-kolshi {
-    background:
-      radial-gradient(circle at 50% 0%, rgba(255,255,255,0.10), transparent 60%),
-      linear-gradient(160deg, var(--kolshi-2), var(--kolshi-1));
-  }
-  .card-kolshi { border-color: rgba(214, 140, 255, 0.18); }
-  .card-kolshi:hover { box-shadow: 0 18px 44px rgba(214, 140, 255, 0.22); border-color: var(--kolshi-glow); }
+  .banner-kolshi { background: linear-gradient(160deg, var(--kolshi-2), var(--kolshi-1)); }
+  .card-kolshi:hover { border-color: var(--kolshi-glow); }
   .card-kolshi .game-cta { color: var(--kolshi-glow); }
-  .card-kolshi .tag { background: rgba(214, 140, 255, 0.12); color: var(--kolshi-glow); border-color: rgba(214, 140, 255, 0.3); }
+  .card-kolshi .tag { color: var(--kolshi-glow); border-color: var(--kolshi-glow); }
 
   .game-body {
-    padding: 22px 24px 26px;
+    padding: 22px 22px 26px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
   }
 
   .game-name {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 8px;
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 14px;
   }
 
   .game-desc {
-    font-size: 0.88rem;
+    font-size: 0.92rem;
     line-height: 1.6;
     color: var(--text-soft);
     flex-grow: 1;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
   }
 
   .tag {
     display: inline-block;
     align-self: flex-start;
-    font-size: 0.68rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 999px;
-    border: 1px solid;
-    margin-bottom: 14px;
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.5px;
+    padding: 5px 10px;
+    border: 2px solid;
+    margin-bottom: 16px;
   }
 
   .game-cta {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-size: 0.8rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    font-weight: 700;
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.5px;
   }
 
   .game-cta::after {
-    content: '\2192';
-    transition: transform 0.25s ease;
-  }
-
-  .game-card:hover .game-cta::after {
-    transform: translateX(4px);
+    content: '\25B6';
+    animation: nudge 0.8s steps(2) infinite;
   }
 
   /* Coming soon card */
   .game-card.soon {
     background: transparent;
-    border: 1.5px dashed rgba(255, 255, 255, 0.16);
+    border: 3px dashed rgba(255, 255, 255, 0.25);
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -302,7 +312,8 @@
 
   .game-card.soon:hover {
     transform: none;
-    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow: none;
+    border-color: rgba(255, 255, 255, 0.4);
   }
 
   .soon-inner {
@@ -310,22 +321,24 @@
   }
 
   .soon-plus {
-    width: 56px;
-    height: 56px;
-    margin: 0 auto 16px;
-    border-radius: 50%;
-    border: 1.5px dashed rgba(255, 255, 255, 0.25);
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 18px;
+    border: 3px dashed rgba(255, 255, 255, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 26px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 22px;
     color: var(--text-soft);
+    animation: blink 1.4s steps(1) infinite;
   }
 
   .soon-title {
-    font-weight: 700;
-    font-size: 1.05rem;
-    margin-bottom: 6px;
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+    font-size: 0.7rem;
+    line-height: 1.7;
+    margin-bottom: 10px;
     color: var(--text);
   }
 
@@ -338,86 +351,79 @@
     position: relative;
     z-index: 1;
     text-align: center;
-    margin-top: 56px;
-    font-size: 0.75rem;
+    margin-top: 60px;
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+    font-size: 0.55rem;
+    line-height: 2;
     color: var(--text-soft);
-    opacity: 0.7;
   }
 
-  @media (prefers-color-scheme: light) {
-    :root {
-      --bg: #f4f5f9;
-      --bg-panel: #ffffff;
-      --grid-line: rgba(20, 20, 40, 0.05);
-      --text: #1c1f2a;
-      --text-soft: #656d80;
-    }
-
-    body::before { mask-image: radial-gradient(circle at 50% 0%, black, transparent 65%); }
-    h1 { background: linear-gradient(135deg, #1c1f2a, #4a4f66); -webkit-background-clip: text; background-clip: text; }
+  footer .cursor {
+    animation: blink 1s steps(1) infinite;
   }
 </style>
 </head>
 <body>
 
   <header>
-    <div class="badge"><span class="dot"></span>Game Hub</div>
-    <h1>Tong <span>Mama</span></h1>
-    <div class="tagline">Pick a game and jump in — new games added regularly.</div>
+    <img class="logo-mark pixel-corners" src="favicon.svg" alt="Tong Mama logo" width="60" height="60">
+    <div class="badge"><span class="dot"></span>INSERT COIN</div>
+    <h1>TONG<br><span>MAMA</span></h1>
+    <div class="tagline"><span class="arrow">▶</span> SELECT YOUR GAME</div>
   </header>
 
   <main>
     <div class="games">
 
-      <a class="game-card card-cricket" href="cricket/">
+      <a class="game-card pixel-corners card-cricket" href="cricket/">
         <div class="game-banner banner-cricket">
           <div class="icon">🏏</div>
         </div>
         <div class="game-body">
-          <span class="tag">Sports · Multiplayer</span>
-          <div class="game-name">Reflex Cricket</div>
+          <span class="tag">SPORTS // MULTI</span>
+          <div class="game-name">REFLEX<br>CRICKET</div>
           <p class="game-desc">
             Time your hit on a millisecond stopwatch to score runs. Play solo,
             pass-and-play, online with a friend, or run a full World Cup tournament.
           </p>
-          <span class="game-cta">Play now</span>
+          <span class="game-cta">PRESS START</span>
         </div>
       </a>
 
-      <a class="game-card card-fish" href="gofish/">
+      <a class="game-card pixel-corners card-fish" href="gofish/">
         <div class="game-banner banner-fish">
           <div class="icon">🎣</div>
         </div>
         <div class="game-body">
-          <span class="tag">Card Game · Party</span>
-          <div class="game-name">Go Fish</div>
+          <span class="tag">CARD // PARTY</span>
+          <div class="game-name">GO FISH</div>
           <p class="game-desc">
             The classic card game, Pond Party style. Ask your opponents for cards,
             collect sets, and see who reels in the most.
           </p>
-          <span class="game-cta">Play now</span>
+          <span class="game-cta">PRESS START</span>
         </div>
       </a>
 
-      <a class="game-card card-kolshi" href="kolshi/">
+      <a class="game-card pixel-corners card-kolshi" href="kolshi/">
         <div class="game-banner banner-kolshi">
           <div class="icon">🃏</div>
         </div>
         <div class="game-body">
-          <span class="tag">Card Game · Multiplayer</span>
-          <div class="game-name">Kolshi</div>
+          <span class="tag">CARD // MULTI</span>
+          <div class="game-name">KOLSHI</div>
           <p class="game-desc">
             A fast multiplayer card game on Yaniv rules — build low-value hands,
             call or show at the right moment, and outlast the table.
           </p>
-          <span class="game-cta">Play now</span>
+          <span class="game-cta">PRESS START</span>
         </div>
       </a>
 
-      <div class="game-card soon">
+      <div class="game-card pixel-corners soon">
         <div class="soon-inner">
-          <div class="soon-plus">+</div>
-          <div class="soon-title">More games coming soon</div>
+          <div class="soon-plus">?</div>
+          <div class="soon-title">MORE GAMES<br>COMING SOON</div>
           <div class="soon-desc">We're always cooking up something new.</div>
         </div>
       </div>
@@ -425,7 +431,7 @@
     </div>
   </main>
 
-  <footer>&copy; 2026 Tong Mama. All rights reserved.</footer>
+  <footer>&copy; 2026 TONG MAMA<span class="cursor">_</span></footer>
 
 </body>
 </html>
