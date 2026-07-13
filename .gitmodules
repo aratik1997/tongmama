@@ -4,3 +4,6 @@
 [submodule "kolshi"]
 	path = kolshi
 	url = https://github.com/aratik1997/callshow.git
+[submodule "gofish"]
+	path = gofish
+	url = https://github.com/aratik1997/gofish.git

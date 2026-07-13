@@ -2,7 +2,7 @@
 
 A small hub of browser-based multiplayer games, built with PHP, vanilla JavaScript, and no build step. Pick a game from the landing page and play — solo, pass-and-play, or online with friends.
 
-**Live structure:** a single [index.html](index.html) landing page links out to each game, which lives in its own self-contained subfolder.
+**Live structure:** a single [index.html](index.html) landing page links out to each game. Every game is its own standalone repo, pulled in here as a git submodule.
 
 ## Games
 
@@ -23,7 +23,11 @@ More games are added over time — see the "More games coming soon" tile on the 
 
 ## Getting started (XAMPP)
 
-1. Clone this repo into your XAMPP `htdocs` directory as `tongmama` (i.e. `htdocs/tongmama`).
+1. Clone this repo (with submodules) into your XAMPP `htdocs` directory as `tongmama`:
+   ```bash
+   git clone --recurse-submodules https://github.com/aratik1997/tongmama.git
+   ```
+   Already cloned without `--recurse-submodules`? Run `git submodule update --init` inside the repo.
 2. Start **Apache** (and **MySQL**, for Cricket) from the XAMPP control panel.
 3. Visit `http://localhost/tongmama/` for the game hub, or jump straight into a game:
    - `http://localhost/tongmama/cricket/`
@@ -36,9 +40,9 @@ Each game bootstraps its own database/schema automatically on first load. Kolshi
 
 ```
 index.html      Game hub landing page — pick a game to play
-cricket/        Reflex Cricket (PHP + MySQL)
-gofish/         Go Fish (PHP + SQLite)
-kolshi/         Kolshi / Yaniv (PHP + SQLite)
+cricket/        Reflex Cricket (PHP + MySQL)     — submodule: aratik1997/cricket
+gofish/         Go Fish (PHP + SQLite)           — submodule: aratik1997/gofish
+kolshi/         Kolshi / Yaniv (PHP + SQLite)    — submodule: aratik1997/callshow
 ```
 
 Each game folder has its own README with gameplay rules and implementation details.
