@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tong Mama — Game Hub</title>
+<meta name="description" content="Tong Mama Game Hub — pick a game and start playing.">
+<style>
+  :root {
+    --bg: #0b0e14;
+    --bg-panel: #10141d;
+    --grid-line: rgba(255, 255, 255, 0.04);
+    --text: #eef1f8;
+    --text-soft: #8891a7;
+    --brand: #7c5cff;
+    --brand-glow: #a78bfa;
+
+    --cricket-1: #0f5132;
+    --cricket-2: #1e8c4f;
+    --cricket-glow: #4ade80;
+
+    --fish-1: #063d52;
+    --fish-2: #0f7ea3;
+    --fish-glow: #38d4e0;
+
+    --kolshi-1: #3a0f5c;
+    --kolshi-2: #8b2fc9;
+    --kolshi-glow: #d68cff;
+
+    --soon-glow: #8891a7;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    background:
+      radial-gradient(circle at 15% 0%, rgba(124, 92, 255, 0.14), transparent 45%),
+      radial-gradient(circle at 85% 100%, rgba(56, 212, 224, 0.10), transparent 45%),
+      var(--bg);
+    background-attachment: fixed;
+    color: var(--text);
+    min-height: 100vh;
+    position: relative;
+    padding: 56px 24px 40px;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(circle at 50% 0%, black, transparent 75%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  header {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 52px;
+    animation: fadeUp 0.8s ease-out;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(124, 92, 255, 0.12);
+    border: 1px solid rgba(124, 92, 255, 0.35);
+    color: var(--brand-glow);
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 22px;
+  }
+
+  .badge .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--brand-glow);
+    box-shadow: 0 0 8px var(--brand-glow);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 6vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #ffffff, #b9c0d4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  h1 span {
+    background: linear-gradient(135deg, var(--brand-glow), var(--fish-glow));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .tagline {
+    font-size: 1rem;
+    color: var(--text-soft);
+    letter-spacing: 0.3px;
+  }
+
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  .games {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 26px;
+  }
+
+  .game-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-panel);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 0;
+    text-decoration: none;
+    color: var(--text);
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    animation: fadeUp 0.8s ease-out backwards;
+  }
+
+  .game-card:nth-child(1) { animation-delay: 0.05s; }
+  .game-card:nth-child(2) { animation-delay: 0.15s; }
+  .game-card:nth-child(3) { animation-delay: 0.25s; }
+  .game-card:nth-child(4) { animation-delay: 0.35s; }
+
+  .game-card:hover,
+  .game-card:focus-visible {
+    transform: translateY(-8px);
+  }
+
+  .game-banner {
+    position: relative;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .game-banner .icon {
+    font-size: 52px;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+    transition: transform 0.3s ease;
+  }
+
+  .game-card:hover .game-banner .icon {
+    transform: scale(1.12) rotate(-4deg);
+  }
+
+  .game-banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.16), transparent 60%);
+  }
+
+  /* Cricket theme: floodlit pitch */
+  .banner-cricket {
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 38px),
+      linear-gradient(160deg, var(--cricket-2), var(--cricket-1));
+  }
+  .card-cricket { border-color: rgba(74, 222, 128, 0.18); }
+  .card-cricket:hover { box-shadow: 0 18px 44px rgba(74, 222, 128, 0.22); border-color: var(--cricket-glow); }
+  .card-cricket .game-cta { color: var(--cricket-glow); }
+  .card-cricket .tag { background: rgba(74, 222, 128, 0.12); color: var(--cricket-glow); border-color: rgba(74, 222, 128, 0.3); }
+
+  /* Go Fish theme: ocean waves */
+  .banner-fish {
+    background:
+      radial-gradient(circle at 20% 120%, rgba(255,255,255,0.10) 0, transparent 55%),
+      radial-gradient(circle at 80% 130%, rgba(255,255,255,0.08) 0, transparent 50%),
+      linear-gradient(160deg, var(--fish-2), var(--fish-1));
+  }
+  .card-fish { border-color: rgba(56, 212, 224, 0.18); }
+  .card-fish:hover { box-shadow: 0 18px 44px rgba(56, 212, 224, 0.22); border-color: var(--fish-glow); }
+  .card-fish .game-cta { color: var(--fish-glow); }
+  .card-fish .tag { background: rgba(56, 212, 224, 0.12); color: var(--fish-glow); border-color: rgba(56, 212, 224, 0.3); }
+
+  /* Kolshi theme: casino felt */
+  .banner-kolshi {
+    background:
+      radial-gradient(circle at 50% 0%, rgba(255,255,255,0.10), transparent 60%),
+      linear-gradient(160deg, var(--kolshi-2), var(--kolshi-1));
+  }
+  .card-kolshi { border-color: rgba(214, 140, 255, 0.18); }
+  .card-kolshi:hover { box-shadow: 0 18px 44px rgba(214, 140, 255, 0.22); border-color: var(--kolshi-glow); }
+  .card-kolshi .game-cta { color: var(--kolshi-glow); }
+  .card-kolshi .tag { background: rgba(214, 140, 255, 0.12); color: var(--kolshi-glow); border-color: rgba(214, 140, 255, 0.3); }
+
+  .game-body {
+    padding: 22px 24px 26px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .game-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .game-desc {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--text-soft);
+    flex-grow: 1;
+    margin-bottom: 18px;
+  }
+
+  .tag {
+    display: inline-block;
+    align-self: flex-start;
+    font-size: 0.68rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid;
+    margin-bottom: 14px;
+  }
+
+  .game-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .game-cta::after {
+    content: '\2192';
+    transition: transform 0.25s ease;
+  }
+
+  .game-card:hover .game-cta::after {
+    transform: translateX(4px);
+  }
+
+  /* Coming soon card */
+  .game-card.soon {
+    background: transparent;
+    border: 1.5px dashed rgba(255, 255, 255, 0.16);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 100%;
+    box-shadow: none;
+    cursor: default;
+  }
+
+  .game-card.soon:hover {
+    transform: none;
+    border-color: rgba(255, 255, 255, 0.28);
+  }
+
+  .soon-inner {
+    padding: 40px 24px;
+  }
+
+  .soon-plus {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    border: 1.5px dashed rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    color: var(--text-soft);
+  }
+
+  .soon-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+
+  .soon-desc {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+  }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    margin-top: 56px;
+    font-size: 0.75rem;
+    color: var(--text-soft);
+    opacity: 0.7;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f4f5f9;
+      --bg-panel: #ffffff;
+      --grid-line: rgba(20, 20, 40, 0.05);
+      --text: #1c1f2a;
+      --text-soft: #656d80;
+    }
+
+    body::before { mask-image: radial-gradient(circle at 50% 0%, black, transparent 65%); }
+    h1 { background: linear-gradient(135deg, #1c1f2a, #4a4f66); -webkit-background-clip: text; background-clip: text; }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="badge"><span class="dot"></span>Game Hub</div>
+    <h1>Tong <span>Mama</span></h1>
+    <div class="tagline">Pick a game and jump in — new games added regularly.</div>
+  </header>
+
+  <main>
+    <div class="games">
+
+      <a class="game-card card-cricket" href="cricket/">
+        <div class="game-banner banner-cricket">
+          <div class="icon">🏏</div>
+        </div>
+        <div class="game-body">
+          <span class="tag">Sports · Multiplayer</span>
+          <div class="game-name">Reflex Cricket</div>
+          <p class="game-desc">
+            Time your hit on a millisecond stopwatch to score runs. Play solo,
+            pass-and-play, online with a friend, or run a full World Cup tournament.
+          </p>
+          <span class="game-cta">Play now</span>
+        </div>
+      </a>
+
+      <a class="game-card card-fish" href="gofish/">
+        <div class="game-banner banner-fish">
+          <div class="icon">🎣</div>
+        </div>
+        <div class="game-body">
+          <span class="tag">Card Game · Party</span>
+          <div class="game-name">Go Fish</div>
+          <p class="game-desc">
+            The classic card game, Pond Party style. Ask your opponents for cards,
+            collect sets, and see who reels in the most.
+          </p>
+          <span class="game-cta">Play now</span>
+        </div>
+      </a>
+
+      <a class="game-card card-kolshi" href="kolshi/">
+        <div class="game-banner banner-kolshi">
+          <div class="icon">🃏</div>
+        </div>
+        <div class="game-body">
+          <span class="tag">Card Game · Multiplayer</span>
+          <div class="game-name">Kolshi</div>
+          <p class="game-desc">
+            A fast multiplayer card game on Yaniv rules — build low-value hands,
+            call or show at the right moment, and outlast the table.
+          </p>
+          <span class="game-cta">Play now</span>
+        </div>
+      </a>
+
+      <div class="game-card soon">
+        <div class="soon-inner">
+          <div class="soon-plus">+</div>
+          <div class="soon-title">More games coming soon</div>
+          <div class="soon-desc">We're always cooking up something new.</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>&copy; 2026 Tong Mama. All rights reserved.</footer>
+
+</body>
+</html>

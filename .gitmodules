@@ -1,0 +1,6 @@
+[submodule "cricket"]
+	path = cricket
+	url = https://github.com/aratik1997/cricket.git
+[submodule "kolshi"]
+	path = kolshi
+	url = https://github.com/aratik1997/callshow.git

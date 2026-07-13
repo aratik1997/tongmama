@@ -1,0 +1,32 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors/IDEs
+.vscode/
+.idea/
+*.swp
+
+# PHP / Composer
+/vendor/
+composer.lock
+
+# Logs
+*.log
+
+# Local environment overrides
+.env
+.env.local
+
+# Local config with real credentials (copy from *.example.php)
+kolshi/api/config.php
+
+# Runtime SQLite databases (auto-created on first run)
+gofish/data/*.sqlite
+gofish/data/*.sqlite-journal
+gofish/data/*.sqlite-wal
+gofish/data/*.sqlite-shm
+kolshi/data/*.sqlite
+kolshi/data/*.sqlite-journal
+kolshi/data/*.sqlite-wal
+kolshi/data/*.sqlite-shm
