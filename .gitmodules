@@ -7,3 +7,9 @@
 [submodule "gofish"]
 	path = gofish
 	url = https://github.com/aratik1997/gofish.git
+[submodule "poker"]
+	path = poker
+	url = https://github.com/aratik1997/poker.git
+[submodule "uno"]
+	path = uno
+	url = https://github.com/aratik1997/uno.git

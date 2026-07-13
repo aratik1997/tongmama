@@ -32,6 +32,14 @@
     --kolshi-2: #5c0f8b;
     --kolshi-glow: #ff2ec4;
 
+    --poker-1: #0f1a0f;
+    --poker-2: #1d3a1d;
+    --poker-glow: #ffd23f;
+
+    --uno-1: #3a0a0a;
+    --uno-2: #7a1414;
+    --uno-glow: #ff4d4d;
+
     --pixel: 6px;
   }
 
@@ -251,6 +259,16 @@
   .card-kolshi .game-cta { color: var(--kolshi-glow); }
   .card-kolshi .tag { color: var(--kolshi-glow); border-color: var(--kolshi-glow); }
 
+  .banner-poker { background: linear-gradient(160deg, var(--poker-2), var(--poker-1)); }
+  .card-poker:hover { border-color: var(--poker-glow); }
+  .card-poker .game-cta { color: var(--poker-glow); }
+  .card-poker .tag { color: var(--poker-glow); border-color: var(--poker-glow); }
+
+  .banner-uno { background: linear-gradient(160deg, var(--uno-2), var(--uno-1)); }
+  .card-uno:hover { border-color: var(--uno-glow); }
+  .card-uno .game-cta { color: var(--uno-glow); }
+  .card-uno .tag { color: var(--uno-glow); border-color: var(--uno-glow); }
+
   .game-body {
     padding: 22px 22px 26px;
     display: flex;
@@ -415,6 +433,36 @@
           <p class="game-desc">
             A fast multiplayer card game on Yaniv rules — build low-value hands,
             call or show at the right moment, and outlast the table.
+          </p>
+          <span class="game-cta">PRESS START</span>
+        </div>
+      </a>
+
+      <a class="game-card pixel-corners card-poker" href="poker/index.html">
+        <div class="game-banner banner-poker">
+          <div class="icon">♠️</div>
+        </div>
+        <div class="game-body">
+          <span class="tag">CASINO // MULTI</span>
+          <div class="game-name">POKER<br>NIGHT</div>
+          <p class="game-desc">
+            Full Texas Hold'em for 2–8 players — blinds, side pots, and a real hand
+            evaluator. Create a room, share the code, and go all in.
+          </p>
+          <span class="game-cta">PRESS START</span>
+        </div>
+      </a>
+
+      <a class="game-card pixel-corners card-uno" href="uno/index.php">
+        <div class="game-banner banner-uno">
+          <div class="icon">🎴</div>
+        </div>
+        <div class="game-body">
+          <span class="tag">CARD // MULTI</span>
+          <div class="game-name">UNO<br>ONLINE</div>
+          <p class="game-desc">
+            The classic UNO for 2–8 players — stack the +2s, drop a Wild Draw Four,
+            and call UNO before anyone else does.
           </p>
           <span class="game-cta">PRESS START</span>
         </div>
