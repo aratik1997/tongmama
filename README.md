@@ -12,14 +12,15 @@ A small hub of browser-based multiplayer games, built with PHP, vanilla JavaScri
 | 🎣 **Go Fish** | [`/gofish`](https://github.com/aratik1997/gofish) | The classic card game, "Pond Party" style. Ask opponents for cards, collect sets, and see who reels in the most — with in-game chat and a tiebreak mode. |
 | 🃏 **Kolshi** | [`/kolshi`](https://github.com/aratik1997/callshow) | A fast multiplayer card game on Yaniv rules. Build a low-value hand, Call or Show at the right moment, and outlast the table. Real-time play over polling, with a turn timer, host controls, and chat. |
 | ♠️ **Poker Night** | [`/poker`](https://github.com/aratik1997/poker) | Full multiplayer Texas Hold'em for 2–8 players — blinds, hole cards, flop/turn/river, side pots for all-ins, and a real 5-card hand evaluator. Host controls, live table chat, and sound effects. |
-| 🎴 **UNO Online** | [`/uno`](uno/) | The classic UNO for 2–8 players — stackable +2s, Wild Draw Four, a 30-second turn timer, and a live scoreboard. Rules are data-driven from an XML config, not hardcoded. |
+| 🎴 **UNO Online** | [`/uno`](https://github.com/aratik1997/uno) | The classic UNO for 2–8 players — stackable +2s, Wild Draw Four, a 30-second turn timer, and a live scoreboard. Rules are data-driven from an XML config, not hardcoded. |
+| ♣️ **29 — The Card Game** | [`/twentynine`](https://github.com/aratik1997/twentynine) | The classic South Asian trick-taking game for 3 or 4 players, with fixed partnerships, bidding, and a secret trump. Includes house-rule options (Double/Re-Double, Auto Trump) and a configurable 3-player variant. |
 
 More games are added over time — see the "More games coming soon" tile on the hub for what's in the pipeline.
 
 ## Tech stack
 
 - **PHP** (PDO) for server-side game logic — no framework, no build step
-- **MySQL/MariaDB** (Cricket, Kolshi, Poker, UNO) and **SQLite** (Go Fish) for persistence
+- **MySQL/MariaDB** (Cricket, Kolshi, Poker, UNO, 29) and **SQLite** (Go Fish) for persistence
 - **Vanilla JavaScript** for interactive gameplay and AJAX polling (real-time sync without WebSockets)
 - **Plain HTML/CSS**, each game self-contained in its own folder
 
@@ -37,8 +38,9 @@ More games are added over time — see the "More games coming soon" tile on the 
    - `http://localhost/tongmama/kolshi/`
    - `http://localhost/tongmama/poker/`
    - `http://localhost/tongmama/uno/`
+   - `http://localhost/tongmama/twentynine/`
 
-Go Fish bootstraps its SQLite database automatically on first load — no setup needed. Cricket, Kolshi, Poker, and UNO each need their own MySQL database; Cricket and Poker default to XAMPP's standard `root`/no-password `localhost` setup automatically, while Kolshi requires copying `kolshi/api/config.example.php` to `kolshi/api/config.php` and filling in your own credentials — see [`kolshi/README.md`](kolshi/README.md) for details. UNO's connection settings live in `uno/config/`.
+Go Fish bootstraps its SQLite database automatically on first load — no setup needed. Cricket, Kolshi, Poker, UNO, and 29 each need their own MySQL database; Cricket and Poker default to XAMPP's standard `root`/no-password `localhost` setup automatically, while Kolshi requires copying `kolshi/api/config.example.php` to `kolshi/api/config.php` and filling in your own credentials — see [`kolshi/README.md`](kolshi/README.md) for details. UNO's connection settings live in `uno/config/`, and 29's live in `twentynine/config/config.php`.
 
 ## Project structure
 
@@ -48,7 +50,8 @@ cricket/        Reflex Cricket (PHP + MySQL)    — submodule: https://github.co
 gofish/         Go Fish (PHP + SQLite)          — submodule: https://github.com/aratik1997/gofish
 kolshi/         Kolshi / Yaniv (PHP + MySQL)    — submodule: https://github.com/aratik1997/callshow
 poker/          Poker Night (PHP + MySQL)       — submodule: https://github.com/aratik1997/poker
-uno/            UNO Online (PHP + MySQL)
+uno/            UNO Online (PHP + MySQL)        — submodule: https://github.com/aratik1997/uno
+twentynine/     29 — The Card Game (PHP + MySQL) — submodule: https://github.com/aratik1997/twentynine
 ```
 
 Each game folder has its own README with gameplay rules and implementation details.
@@ -56,4 +59,4 @@ Each game folder has its own README with gameplay rules and implementation detai
 ## Requirements
 
 - PHP 8.0+ (PDO, SimpleXML, SQLite extensions enabled — all on by default in XAMPP)
-- MySQL or MariaDB (for Cricket, Kolshi, Poker, and UNO)
+- MySQL or MariaDB (for Cricket, Kolshi, Poker, UNO, and 29)

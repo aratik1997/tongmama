@@ -40,6 +40,10 @@
     --uno-2: #7a1414;
     --uno-glow: #ff4d4d;
 
+    --twentynine-1: #2a0f16;
+    --twentynine-2: #5c1a2b;
+    --twentynine-glow: #d4af37;
+
     --pixel: 6px;
   }
 
@@ -269,6 +273,11 @@
   .card-uno .game-cta { color: var(--uno-glow); }
   .card-uno .tag { color: var(--uno-glow); border-color: var(--uno-glow); }
 
+  .banner-twentynine { background: linear-gradient(160deg, var(--twentynine-2), var(--twentynine-1)); }
+  .card-twentynine:hover { border-color: var(--twentynine-glow); }
+  .card-twentynine .game-cta { color: var(--twentynine-glow); }
+  .card-twentynine .tag { color: var(--twentynine-glow); border-color: var(--twentynine-glow); }
+
   .game-body {
     padding: 22px 22px 26px;
     display: flex;
@@ -417,7 +426,7 @@
           <div class="game-name">GO FISH</div>
           <p class="game-desc">
             The classic card game, Pond Party style. Ask your opponents for cards,
-            collect sets, and see who reels in the most.
+            collect sets, and see who reels in the most — now in lobbies of up to 10.
           </p>
           <span class="game-cta">PRESS START</span>
         </div>
@@ -462,7 +471,22 @@
           <div class="game-name">UNO<br>ONLINE</div>
           <p class="game-desc">
             The classic UNO for 2–8 players — stack the +2s, drop a Wild Draw Four,
-            and call UNO before anyone else does.
+            and the table auto-calls UNO the instant you're down to one card.
+          </p>
+          <span class="game-cta">PRESS START</span>
+        </div>
+      </a>
+
+      <a class="game-card pixel-corners card-twentynine" href="twentynine/index.php">
+        <div class="game-banner banner-twentynine">
+          <div class="icon">♣️</div>
+        </div>
+        <div class="game-body">
+          <span class="tag">CARD // MULTI</span>
+          <div class="game-name">29<br>THE CARD GAME</div>
+          <p class="game-desc">
+            The classic South Asian trick-taking game for 3 or 4 players. Bid for
+            trump, form partnerships, and win tricks to hit your target.
           </p>
           <span class="game-cta">PRESS START</span>
         </div>

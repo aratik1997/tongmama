@@ -13,3 +13,6 @@
 [submodule "uno"]
 	path = uno
 	url = https://github.com/aratik1997/uno.git
+[submodule "twentynine"]
+	path = twentynine
+	url = https://github.com/aratik1997/twentynine.git
